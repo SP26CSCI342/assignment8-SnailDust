@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://your-platescout.vercel.app",
+    "https://assignment8-snail-dust.vercel.app",
     /\.vercel\.app$/,
   ],
   credentials: true,
