@@ -158,8 +158,6 @@ app.get("/api/health", (req,res) => {
 // POST /api/yelp
 // ============================================================
 app.post("/api/yelp", async (req,res) => {
-  console.log(req.body);
-
   const {term, location, sort_by, limit} = req.body;
 
   // Create URL search parameters using term, location, sort_by, and limit
@@ -172,7 +170,6 @@ app.post("/api/yelp", async (req,res) => {
 
   // Send a fetch request to the yelp backend search endpoint
   const SEARCH_PATH = "https://api.yelp.com/v3/businesses/search";
-  console.log(`${SEARCH_PATH}?${params}`);
   const response = await fetch(`${SEARCH_PATH}?${params}`,{
     headers: {
             Authorization: `Bearer ${process.env.YELP_KEY}`,
