@@ -15,7 +15,14 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware — mount BEFORE any route.
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-platescout.vercel.app",
+    /\.vercel\.app$/,
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI)
@@ -138,11 +145,22 @@ app.post("/api/logout", (req, res) => {
   return res.status(200).json({ message: "Logged out." });
 });
 
+// ============================================================
+// POST /api/health
+// ============================================================
+app.get("/api/health", (req,res) => {
+  res.json({
+    status: "ok",
+    time: new Date().toISOString(),
+    mongo: mongoose.connection.readyState === 1
+  });
+});
+
 // 404 fallback — must come AFTER every route or it'll eat them.
 app.use((req, res) => {
   return res.status(404).json({ error: "Route not found." });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Listening on ${PORT}`);
 });
