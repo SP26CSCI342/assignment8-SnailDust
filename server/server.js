@@ -60,7 +60,6 @@ function validateInputs({ username, email, password }) {
 // ============================================================
 app.post("/api/register", async (req, res) => {
   const { username, email, password } = req.body;
-
   const validationError = validateInputs({ username, email, password });
   if (validationError) {
     return res.status(400).json({ error: validationError });
@@ -95,7 +94,6 @@ app.post("/api/register", async (req, res) => {
 // ============================================================
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
-
   if (!username || !password) {
     return res.status(400).json({ error: "Username and password are required." });
   }
