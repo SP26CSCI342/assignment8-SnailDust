@@ -144,7 +144,7 @@ app.post("/api/logout", (req, res) => {
 });
 
 // ============================================================
-// POST /api/health
+// GET /api/health
 // ============================================================
 app.get("/api/health", (req,res) => {
   res.json({
@@ -153,6 +153,40 @@ app.get("/api/health", (req,res) => {
     mongo: mongoose.connection.readyState === 1
   });
 });
+
+// ============================================================
+// POST /api/yelp
+// ============================================================
+app.post("/api/yelp", async (req,res) => {
+  console.log(req.body);
+
+  const {term, location, sort_by, limit} = req.body;
+
+  // Create URL search parameters using term, location, sort_by, and limit
+  const params = new URLSearchParams({
+    term, 
+    location, 
+    sortBy: sort_by, 
+    lim: limit,
+  });
+
+  // Send a fetch request to the yelp backend search endpoint
+  const SEARCH_PATH = "https://api.yelp.com/v3/businesses/search";
+  console.log(`${SEARCH_PATH}?${params}`);
+  const response = await fetch(`${SEARCH_PATH}?${params}`,{
+    headers: {
+            Authorization: `Bearer ${process.env.YELP_KEY}`,
+          },
+  });
+
+  if(!response.ok) {
+    return res.status(response.status).json({ message: "Yelp request failed."});
+  }else{
+    const data = await response.json();
+
+    return res.status(response.status).json(data);
+  }
+})
 
 // 404 fallback — must come AFTER every route or it'll eat them.
 app.use((req, res) => {
