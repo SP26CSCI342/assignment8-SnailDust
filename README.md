@@ -2,9 +2,9 @@ Isaac Schulz - Assignment 8
 
 ## Live URLs
 
-- **Client:** https://platescout-yourname.vercel.app
-- **Server:** https://platescout-yourname.onrender.com
-- **Server health check:** https://platescout-yourname.onrender.com/api/health
+- **Client:** [https://assignment8-snail-dust.vercel.app](https://assignment8-snail-dust.vercel.app/)
+- **Server:** [https://platescout-schulz.onrender.com](https://platescout-schulz.onrender.com/)
+- **Server health check:** [https://assignment8-snail-dust.vercel.app/api/health](https://assignment8-snail-dust.vercel.app/api/health)
 
 ## Local setup
 
